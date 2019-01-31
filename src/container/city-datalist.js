@@ -6,14 +6,18 @@ class CityList extends Component {
     createOptions() {
         return this.props.cities.map((city) => {
             return (
-                <option>{city.code}</option>
+                <option value={city.code} >{city.name}</option>
             );
         });
     }
 
     render() {
         return (
-            <datalist id="cities" defaultValue="Select city">{this.createOptions()}</datalist>
+            <div>
+                <label>{this.props.componentName}: </label>
+                <input list="city_list" name={this.props.name} autoComplete="on" autoCapitalize="on"/>
+                <datalist id="city_list">{this.createOptions()}</datalist>
+            </div>
         );        
     }
 }

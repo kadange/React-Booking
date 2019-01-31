@@ -1,16 +1,13 @@
 import React from 'react';
-import CityList from '../container/city-dropdown-list';
+import CityList from '../container/city-datalist';
+import Container from './container-component';
 
 const App = () => {
     return (
         <div>
-            <h1>Hello!</h1>
-            From City: <input list="cities" name="fromCity" /><CityList />
-            <br />
-            To City: <input list="cities" name="toCity" /><CityList />
-            <fieldset>
-                <legend>Container Details:</legend>
-            </fieldset>
+            <CityList componentName="From City" name="fromCity" />
+            <CityList componentName="To City" name="toCity" />
+            <Container />
         </div>
     );
 }
