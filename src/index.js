@@ -1,44 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
-
-//Import for Provider
-import {Provider} from 'react-redux';
-//Import for createStore
 import {createStore} from 'redux';
-//Import for reducer
 import allReducer from './reducer';
+import {Provider} from 'react-redux';
+import AppMain from './component/AppMain';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+const store = createStore(allReducer);
 
-const { Header, Content, Footer } = Layout;
+class App extends Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <AppMain />
+      </Provider>
+    );
+  }
+}
 
 ReactDOM.render(
-  <Layout className="layout">
-    <Header>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['2']}
-        style={{ lineHeight: '64px' }}
-      >
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
-      </Menu>
-    </Header>
-    <Content style={{ padding: '0 50px' }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
-      </Breadcrumb>
-      <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
-    </Content>
-    <Footer style={{ textAlign: 'center' }}>
-      Ant Design ©2018 Created by Ant UED
-    </Footer>
-  </Layout>,
+  <App />,
   document.getElementById('root')
 );

@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from 'antd/lib/button';
-//import 'antd/lib/button/style/css';
+import {Button, Divider} from 'antd';
 
 const Container = () => {
     return (
         <div>
-            <fieldset>
+            {/* <fieldset>
                 <legend>Container Details:</legend>
                 <Button type="ghost">Add</Button>
                 <Button type="default">Delete</Button>
                 <br/>
                 Description: <input type="text" name="cargoDesc"/>
 
-            </fieldset>
+            </fieldset> */}
+            <Divider orientation="left" >Container Details:</Divider>
         </div>
     );
 }

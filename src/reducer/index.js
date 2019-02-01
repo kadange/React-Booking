@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
-import City from './reducer-city';
+import CityReducer from './reducer-city';
+import MenuReducer from './reducer-menu';
 
 const allReducers = combineReducers({
-    cities: City
+    cities: CityReducer,
+    activeMenu: MenuReducer,
 });
 
 export default allReducers;

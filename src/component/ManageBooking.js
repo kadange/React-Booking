@@ -1,13 +1,13 @@
 import React from 'react';
 import CityList from '../container/city-datalist';
-import Container from './container-component';
+import ContainerComponent from './ContainerComponent';
 
 const App = () => {
     return (
-        <div>
+        <div style={{ borderStyle: "groove", padding: "10px"}}>
             <CityList componentName="From City" name="fromCity" />
             <CityList componentName="To City" name="toCity" />
-            <Container />
+            <ContainerComponent />
         </div>
     );
 }
