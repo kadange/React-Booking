@@ -34,21 +34,22 @@ class CityList extends Component {
 
     render() {
         return (            
-            <div style={{ margin: "12px" }}>
-            <label>{this.props.componentName}: </label>
-            <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select a city"
-                optionFilterProp="children"
-                onChange={handleChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-            >
-                {this.createOptions()}
-            </Select>
-        </div>
+            // <div style={{ margin: "12px" }}>
+            //     <label>{this.props.componentName}: </label>
+            <div>
+                <Select
+                    showSearch
+                    // style={{ width: 200 }}
+                    placeholder="Select a city"
+                    optionFilterProp="children"
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                >
+                    {this.createOptions()}
+                </Select>
+            </div>
         );        
     }
 }
