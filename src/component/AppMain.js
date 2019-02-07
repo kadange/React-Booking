@@ -4,11 +4,30 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {menuSelect} from '../action/MenuSelect';
 import AppContent from './AppContent';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
 
 class AppPage extends Component {
+
+    reinitContent(menu, activeMenu) {
+        let content;
+        switch(menu) {
+            case "main":
+                content = <AppContent activeMenu="MAIN_MENU" />
+                break
+            case "manage":
+                content = <AppContent activeMenu="MANAGE_MENU" />
+                break
+            case "search":
+                content = <AppContent activeMenu="SEARCH_MENU" />
+                break
+            default:
+                content = <AppContent activeMenu="MAIN_MENU" />
+        }
+
+        return content;
+    }
 
     render() {
         return (
@@ -16,9 +35,13 @@ class AppPage extends Component {
                 <Header>
                     <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }} >
-                        <Menu.Item key="MAIN_MENU" onClick={() => this.props.menuSelect("MAIN_MENU")} ><NavLink to="/main">Main</NavLink></Menu.Item>
+                        {/* <Menu.Item key="MAIN_MENU" onClick={() => this.props.menuSelect("MAIN_MENU")} ><NavLink to="/main">Main</NavLink></Menu.Item>
                         <Menu.Item key="MANAGE_MENU" onClick={() => this.props.menuSelect("MANAGE_MENU")} ><NavLink to="/manage">Manage</NavLink></Menu.Item>
-                        <Menu.Item key="SEARCH_MENU" onClick={() => this.props.menuSelect("SEARCH_MENU")} ><NavLink to="/search">Search</NavLink></Menu.Item>
+                        <Menu.Item key="SEARCH_MENU" onClick={() => this.props.menuSelect("SEARCH_MENU")} ><NavLink to="/search">Search</NavLink></Menu.Item> */}
+
+                        <Menu.Item key="MAIN_MENU" ><NavLink to="/main">Main</NavLink></Menu.Item>
+                        <Menu.Item key="MANAGE_MENU" ><NavLink to="/manage">Manage</NavLink></Menu.Item>
+                        <Menu.Item key="SEARCH_MENU" ><NavLink to="/search">Search</NavLink></Menu.Item>
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
@@ -28,7 +51,12 @@ class AppPage extends Component {
                     <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb> */}
                     <div style={{ margin: '45px 0 0 0', background: '#fff', padding: 24, minHeight: 280 }}>
-                        <AppContent activeMenu={this.props.activeMenu} />
+                        <Route exact path="/" render={() => (
+                            this.reinitContent("MAIN_MENU")
+                        )}/>
+                        <Route path="/:menu" render={({match}) => (
+                            this.reinitContent(match.params.menu, this.props.activeMenu)
+                        )}/>
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
