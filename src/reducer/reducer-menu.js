@@ -3,6 +3,6 @@ export default function (state=null, action) {
         case "MENU_SELECTED":
             return action.payload;
         default:
-            return null;
+            return "MAIN_MENU";
     }
 }

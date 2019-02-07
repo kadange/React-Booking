@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {menuSelect} from '../action/MenuSelect';
 import AppContent from './AppContent';
+import {NavLink} from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
 
@@ -15,9 +16,9 @@ class AppPage extends Component {
                 <Header>
                     <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }} >
-                        <Menu.Item key="MAIN_MENU" onClick={() => this.props.menuSelect("MAIN_MENU")} >Main</Menu.Item>
-                        <Menu.Item key="MANAGE_MENU" onClick={() => this.props.menuSelect("MANAGE_MENU")} >Manage</Menu.Item>
-                        <Menu.Item key="SEARCH_MENU" onClick={() => this.props.menuSelect("SEARCH_MENU")} >Search</Menu.Item>
+                        <Menu.Item key="MAIN_MENU" onClick={() => this.props.menuSelect("MAIN_MENU")} ><NavLink to="/main">Main</NavLink></Menu.Item>
+                        <Menu.Item key="MANAGE_MENU" onClick={() => this.props.menuSelect("MANAGE_MENU")} ><NavLink to="/manage">Manage</NavLink></Menu.Item>
+                        <Menu.Item key="SEARCH_MENU" onClick={() => this.props.menuSelect("SEARCH_MENU")} ><NavLink to="/search">Search</NavLink></Menu.Item>
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
@@ -26,7 +27,7 @@ class AppPage extends Component {
                     <Breadcrumb.Item>List</Breadcrumb.Item>
                     <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb> */}
-                    <div style={{ margin: '50px 0', background: '#fff', padding: 24, minHeight: 280 }}>
+                    <div style={{ margin: '45px 0 0 0', background: '#fff', padding: 24, minHeight: 280 }}>
                         <AppContent activeMenu={this.props.activeMenu} />
                     </div>
                 </Content>
