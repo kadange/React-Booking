@@ -29,9 +29,24 @@ const rowSelection = {
       disabled: record.name === 'Disabled User', // Column configuration not to be checked
       name: record.name,
     }),
-  };
+};
+
+
 
 class Container extends Component {
+    showConfirm() {
+        confirm({
+            title: 'Do you want to delete these items?',
+            content: 'When clicked the OK button, this dialog will be closed after 1 second',
+            onOk() {
+                return new Promise((resolve, reject) => {
+                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
+    }
+
     render() {
         return (
             <Card 
@@ -40,15 +55,12 @@ class Container extends Component {
                 // extra={<a href="#">More</a>}
                 extra={
                     <div>
-                        <Button type="default" >Add</Button>
-                        <Button type="default" >Delete</Button>
+                        <Button type="default" onClick={this.showConfirm}>Add</Button>
+                        <Button type="danger" >Delete</Button>
                     </div>
                 }
                 // style={{ width: 700 }}
             >
-                {/* <div style={{ borderStyle: "solid", borderWidth: "1px", borderRadius: "5px", margin: "5px 0", padding: "10px"}}>
-                
-                </div> */}
                 <Table rowSelection={rowSelection} columns={columns} scroll={{ x: '100%' }} />
             </Card>
             

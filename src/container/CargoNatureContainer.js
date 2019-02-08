@@ -18,16 +18,16 @@ console.log('focus');
 
 function mapStateToProps(state) {
     return {
-        cities: state.cities,
+        cgoNatures: state.cargoNatures,
     }
 }
 
 class CityList extends Component {
 
     createOptions() {
-        return this.props.cities.map((city) => {
+        return this.props.cgoNatures.map((nature) => {
             return (
-                <Option key={city.id} value={city.code} >{city.name}</Option>
+                <Option key={nature.id} value={nature.code} >{nature.name}</Option>
             );
         });
     }
@@ -37,7 +37,7 @@ class CityList extends Component {
             <div>
                 <Select
                     showSearch
-                    placeholder="Select a city"
+                    placeholder="Select a cargo nature"
                     optionFilterProp="children"
                     onChange={handleChange}
                     onFocus={handleFocus}
