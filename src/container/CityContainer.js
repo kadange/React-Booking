@@ -46,6 +46,7 @@ class CityList extends Component {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                    name={this.props.name}
                 >
                     {this.createOptions()}
                 </Select>

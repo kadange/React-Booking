@@ -1,108 +1,55 @@
 import React from 'react';
-import CityList from '../container/CityContainer';
+import CityListComponent from '../container/CityContainer';
 import ContainerComponent from './ContainerComponent';
-import {Button, Divider, Input, Modal, Form, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, AutoComplete} from 'antd';
+import {Button, Divider, Input, Modal, Form} from 'antd';
+import {reduxForm, Field} from 'redux-form';
 
 
 const confirm = Modal.confirm;
 
-const ManageBooking = () => {
-    const formItemLayout = {
-        labelCol: {
-            xs: { span: 24 },
-            sm: { span: 2 },
-        },
-        wrapperCol: {
-            xs: { span: 16 },
-            sm: { span: 4 },
-        },
-    };
-    const tailFormItemLayout = {
-        wrapperCol: {
-            xs: {
-                span: 24,
-                offset: 2,
-            },
-            sm: {
-                span: 16,
-                offset: 1,
-            },
-        },
-    };
-
-    function showConfirm() {
-        confirm({
-            title: 'Do you want to delete these items?',
-            content: 'When clicked the OK button, this dialog will be closed after 1 second',
-            onOk() {
-                return new Promise((resolve, reject) => {
-                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
-            },
-            onCancel() {},
-        });
-    }
-
-    return (
-        <div style={{ borderStyle: "groove", padding: "10px"}}>
-            <Form>
-                <Form.Item {...formItemLayout}
-                    label="From City">
-                    <CityList name="fromCity" />
-                </Form.Item>
-                <Form.Item {...formItemLayout}
-                    label="To City">
-                    <CityList name="toCity" />
-                </Form.Item>
-                
-                <Divider orientation="left" >Container Details:</Divider>
-                
-                <Form.Item {...formItemLayout}
-                    label="Description">
-                    <Input placeholder="Cargo Description" allowClear />
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout} >
-                    <Button type="default" onClick={showConfirm}>Add</Button>
-                    <Button type="default">Delete</Button>
-                </Form.Item>
-                
-                <ContainerComponent />
-            </Form>
-        </div>
-    );
+const showResults = () => {
+    return window.alert('You submitted: \n\n${JSON.string}')
 }
 
+const showConfirm = () => {
+    confirm({
+        title: 'Do you want to delete these items?',
+        content: 'When clicked the OK button, this dialog will be closed after 1 second',
+        onOk() {
+            return new Promise((resolve, reject) => {
+            setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+            }).catch(() => console.log('Oops errors!'));
+        },
+        onCancel() {},
+    });
+}
 
+const renderCityComponent = ({ name, label }) => {
+    return <div><label>{label}</label><CityListComponent name={name}/></div>
+}
 
-// const confirm = Modal.confirm;
+const rederInputComponent = ({ placeholder, label }) => {
+    return <div><label>{label}</label><Input placeholder={placeholder} allowClear /></div>
+}
 
-// class ManageBooking extends Component {
-//     showConfirm() {
-//         confirm({
-//             title: 'Do you want to delete these items?',
-//             content: 'When clicked the OK button, this dialog will be closed after 1 second',
-//             onOk() {
-//             return new Promise((resolve, reject) => {
-//                 setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-//             }).catch(() => console.log('Oops errors!'));
-//             },
-//             onCancel() {},
-//         });
-//     }
+let ManageBooking = ({handleSubmit}) => {
+    return (
+        <form onSubmit={handleSubmit(showResults)}>
+            <div style={{ borderStyle: "groove", padding: "10px"}}>
+                <Field name="fromCity" label="From City" component={renderCityComponent} />
+                <Field name="toCity" label="To City" component={renderCityComponent} />
+                <Divider orientation="left" >Container Details:</Divider>
+                <Field name="description" label="Description" component={rederInputComponent} />
+                
+                <ContainerComponent />
+                <Button type="primary" htmlType="submit">Submit</Button>
+            </div>
+        </form>
+    );    
+}
 
-//     render() {
-//         return (
-//             <div style={{ borderStyle: "groove", padding: "10px"}}>
-//                 <CityList componentName="From City" name="fromCity" />
-//                 <CityList componentName="To City" name="toCity" />
-//                 <Divider orientation="left" >Container Details:</Divider>
-                            
-//                 <label>Description: </label><Input placeholder="Cargo Description" allowClear />
-//                 <Button type="default" onClick={this.showConfirm()}>Add</Button><Button type="default">Delete</Button>
-//                 <ContainerComponent />
-//             </div>
-//         )
-//     }
-// }
+ManageBooking = reduxForm({
+    form: 'booking',
+})(ManageBooking)
 
 export default ManageBooking;
