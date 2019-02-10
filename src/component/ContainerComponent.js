@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
+import { addContainerDetails } from '../action/ContainerDetailsAction';
 
 const columns = [{
     title: "Size/Type",
-    dataIndex: "sizeType",
+    dataIndex: "sizeType", 
+    key: 'sizeType',
 }, {
     title: "Quantity",
     dataIndex: "quantity",
+    key: 'quantity',
 }, {
     title: "Gross Weight",
     dataIndex: "grossWeight",
+    key: 'grossWeight',
 }, {
     title: "Scale",
     dataIndex: "scale",
+    key: 'scale',
 }, {
     title: "OB Haulage",
     dataIndex: "obHaulage",
+    key: 'obHaulage',
 }, {
     title: "IB Haulage",
     dataIndex: "ibHaulage",
+    key: 'ibHaulage',
 },]
 
 const rowSelection = {
@@ -52,7 +61,6 @@ class Container extends Component {
     }
 
     handleSubmit = () => {
-        console.log('handle submit')
         const form = this.formRef.props.form;
         form.validateFields((err, values) => {
             if (err) {
@@ -61,7 +69,11 @@ class Container extends Component {
 
             console.log('Received values of form: ', values);
             form.resetFields();
-            this.setState({ visible: false });
+            this.props.addContainerDetails(values);
+
+            this.setState({ 
+                visible: false,
+            });
         });
     }
 
@@ -92,11 +104,27 @@ class Container extends Component {
                 >
                     <ContainerDetails wrappedComponentRef={this.saveFormRef} />
                 </Modal>
-                <Table rowSelection={rowSelection} columns={columns} scroll={{ x: '100%' }} />
+                <Table rowSelection={rowSelection} dataSource={this.props.containerDetails} columns={columns} scroll={{ x: '100%' }} />
             </Card>
-            
         );
     }
 }
 
-export default Container;
+function mapStateToProps(state) {
+    return {
+        containerDetails: state.containerDetails,
+    }
+}
+
+// const matchDispatchToProps = dispatch => ({
+//     onSubmit(values) {
+//           dispatch(addContainerDetails(values));
+//     },
+// });
+function matchDispatchToProps(dispatch) {
+    return {
+        addContainerDetails: bindActionCreators(addContainerDetails, dispatch)
+    };
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(Container);

@@ -3,6 +3,7 @@ import CityReducer from './reducer-city';
 import MenuReducer from './reducer-menu';
 import CargoNatureReducer from './reducer-cargo-nature';
 import SizeType from './reducer-sizetype';
+import ContainerDetailsReducer from './reducer-container-details';
 import {reducer as formReducer} from 'redux-form';
 
 const allReducers = combineReducers({
@@ -10,6 +11,7 @@ const allReducers = combineReducers({
     activeMenu: MenuReducer,
     cargoNatures: CargoNatureReducer,
     sizeTypes: SizeType,
+    constainerDetails: ContainerDetailsReducer,
     manageForm: formReducer,
 });
 
