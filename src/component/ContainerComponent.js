@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Table } from 'antd';
+import { Card, Button, Table, Modal } from 'antd';
 
 const columns = [{
     title: "Size/Type",
@@ -31,19 +31,29 @@ const rowSelection = {
     }),
 };
 
-
-
 class Container extends Component {
-    showConfirm() {
-        confirm({
-            title: 'Do you want to delete these items?',
-            content: 'When clicked the OK button, this dialog will be closed after 1 second',
-            onOk() {
-                return new Promise((resolve, reject) => {
-                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!'));
-            },
-            onCancel() {},
+    constructor(props) {
+        super(props);
+        this.state = { visible: false };
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
         });
     }
 
@@ -55,12 +65,22 @@ class Container extends Component {
                 // extra={<a href="#">More</a>}
                 extra={
                     <div>
-                        <Button type="default" onClick={this.showConfirm}>Add</Button>
+                        <Button type="default" onClick={this.showModal}>Add</Button>
                         <Button type="danger" >Delete</Button>
                     </div>
                 }
                 // style={{ width: 700 }}
             >
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
                 <Table rowSelection={rowSelection} columns={columns} scroll={{ x: '100%' }} />
             </Card>
             
