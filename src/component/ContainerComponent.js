@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button, Table, Modal } from 'antd';
+import ContainerDetails from './ContainerDetailsComponent';
 
 const columns = [{
     title: "Size/Type",
@@ -43,18 +44,29 @@ class Container extends Component {
         });
     }
 
-    handleOk = (e) => {
+    handleCancel = (e) => {
         console.log(e);
         this.setState({
             visible: false,
         });
     }
 
-    handleCancel = (e) => {
-        console.log(e);
-        this.setState({
-            visible: false,
+    handleSubmit = () => {
+        console.log('handle submit')
+        const form = this.formRef.props.form;
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
+            }
+
+            console.log('Received values of form: ', values);
+            form.resetFields();
+            this.setState({ visible: false });
         });
+    }
+
+    saveFormRef = (formRef) => {
+        this.formRef = formRef;
     }
 
     render() {
@@ -74,12 +86,11 @@ class Container extends Component {
                 <Modal
                     title="Basic Modal"
                     visible={this.state.visible}
-                    onOk={this.handleOk}
+                    onOk={this.handleSubmit}
                     onCancel={this.handleCancel}
+                    okButtonProps={{ htmlType: "submit" }}
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <ContainerDetails wrappedComponentRef={this.saveFormRef} />
                 </Modal>
                 <Table rowSelection={rowSelection} columns={columns} scroll={{ x: '100%' }} />
             </Card>
