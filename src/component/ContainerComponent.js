@@ -41,6 +41,29 @@ const rowSelection = {
     }),
 };
 
+const data = [{
+    sizeType: '20GP',
+    quantity: 32,
+    grossWeight: 100,
+    scale: 'KG',
+    obHaulage: 'Carrier',
+    ibHaulage: 'Merchant',
+  }, {
+    sizeType: '20GP',
+    quantity: 32,
+    grossWeight: 100,
+    scale: 'KG',
+    obHaulage: 'Carrier',
+    ibHaulage: 'Merchant',
+  }, {
+    sizeType: '20GP',
+    quantity: 32,
+    grossWeight: 100,
+    scale: 'KG',
+    obHaulage: 'Carrier',
+    ibHaulage: 'Merchant',
+  }];
+
 class Container extends Component {
     constructor(props) {
         super(props);
@@ -68,8 +91,9 @@ class Container extends Component {
             }
 
             console.log('Received values of form: ', values);
-            form.resetFields();
             this.props.addContainerDetails(values);
+            
+            form.resetFields();
 
             this.setState({ 
                 visible: false,
@@ -105,26 +129,21 @@ class Container extends Component {
                     <ContainerDetails wrappedComponentRef={this.saveFormRef} />
                 </Modal>
                 <Table rowSelection={rowSelection} dataSource={this.props.containerDetails} columns={columns} scroll={{ x: '100%' }} />
+                {/* <Table rowSelection={rowSelection} dataSource={data} columns={columns} scroll={{ x: '100%'}} /> */}
             </Card>
         );
     }
 }
 
 function mapStateToProps(state) {
+    console.log(state.containerDetails);
     return {
-        containerDetails: state.containerDetails,
+        containerDetails: state.containerDetails.data,
     }
 }
 
-// const matchDispatchToProps = dispatch => ({
-//     onSubmit(values) {
-//           dispatch(addContainerDetails(values));
-//     },
-// });
 function matchDispatchToProps(dispatch) {
-    return {
-        addContainerDetails: bindActionCreators(addContainerDetails, dispatch)
-    };
+    return bindActionCreators({addContainerDetails: addContainerDetails}, dispatch)
 }
 
 export default connect(mapStateToProps,matchDispatchToProps)(Container);

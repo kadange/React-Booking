@@ -11,7 +11,7 @@ const allReducers = combineReducers({
     activeMenu: MenuReducer,
     cargoNatures: CargoNatureReducer,
     sizeTypes: SizeType,
-    constainerDetails: ContainerDetailsReducer,
+    containerDetails: ContainerDetailsReducer,
     manageForm: formReducer,
 });
 

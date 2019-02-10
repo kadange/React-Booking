@@ -43,7 +43,7 @@ class ContainerDetails extends Component {
                         (<InputNumber min={1} allowClear />)}
                     </Form.Item>
                     <Form.Item label="Gross Weight">
-                        {getFieldDecorator('weight')
+                        {getFieldDecorator('grossWeight')
                         (<InputNumber min={0} step={0.1} allowClear />)}
                     </Form.Item>
                     <Form.Item label="Scale">
@@ -67,8 +67,8 @@ class ContainerDetails extends Component {
                             optionFilterProp="children"
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                         >
-                            <Option key={1} value='carrier' >Carrier</Option>
-                            <Option key={2} value='merchant' >Merchant</Option>
+                            <Option key={1} value='Carrier' >Carrier</Option>
+                            <Option key={2} value='Merchant' >Merchant</Option>
                         </Select>)}
                     </Form.Item>
                     <Form.Item label="IB Haulage">
@@ -79,8 +79,8 @@ class ContainerDetails extends Component {
                             optionFilterProp="children"
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                         >
-                            <Option key={1} value='carrier' >Carrier</Option>
-                            <Option key={2} value='merchant' >Merchant</Option>
+                            <Option key={1} value='Carrier' >Carrier</Option>
+                            <Option key={2} value='Merchant' >Merchant</Option>
                         </Select>)}
                     </Form.Item>
                 </Form>
