@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
 import { addContainerDetails } from '../action/ContainerDetailsAction';
@@ -40,29 +40,6 @@ const rowSelection = {
       name: record.name,
     }),
 };
-
-const data = [{
-    sizeType: '20GP',
-    quantity: 32,
-    grossWeight: 100,
-    scale: 'KG',
-    obHaulage: 'Carrier',
-    ibHaulage: 'Merchant',
-  }, {
-    sizeType: '20GP',
-    quantity: 32,
-    grossWeight: 100,
-    scale: 'KG',
-    obHaulage: 'Carrier',
-    ibHaulage: 'Merchant',
-  }, {
-    sizeType: '20GP',
-    quantity: 32,
-    grossWeight: 100,
-    scale: 'KG',
-    obHaulage: 'Carrier',
-    ibHaulage: 'Merchant',
-  }];
 
 class Container extends Component {
     constructor(props) {
@@ -109,27 +86,22 @@ class Container extends Component {
         return (
             <Card 
                 size="small"
-                // title="addDelete"
-                // extra={<a href="#">More</a>}
                 extra={
                     <div>
                         <Button type="default" onClick={this.showModal}>Add</Button>
                         <Button type="danger" >Delete</Button>
                     </div>
                 }
-                // style={{ width: 700 }}
             >
                 <Modal
                     title="Basic Modal"
                     visible={this.state.visible}
                     onOk={this.handleSubmit}
                     onCancel={this.handleCancel}
-                    okButtonProps={{ htmlType: "submit" }}
                 >
                     <ContainerDetails wrappedComponentRef={this.saveFormRef} />
                 </Modal>
-                <Table rowSelection={rowSelection} dataSource={this.props.containerDetails} columns={columns} scroll={{ x: '100%' }} />
-                {/* <Table rowSelection={rowSelection} dataSource={data} columns={columns} scroll={{ x: '100%'}} /> */}
+                <Table rowSelection={rowSelection} dataSource={this.props.containerDetails} size="small" columns={columns} scroll={{ x: '100%' }} />
             </Card>
         );
     }

@@ -1,12 +1,14 @@
 const initialState = {
-    data: [{
-        sizeType: '20GP',
-        quantity: 32,
-        grossWeight: 100,
-        scale: 'KG',
-        obHaulage: 'Carrier',
-        ibHaulage: 'Merchant',
-    }],
+    data: [
+        // {
+        //     sizeType: '20GP',
+        //     quantity: 32,
+        //     grossWeight: 100,
+        //     scale: 'KG',
+        //     obHaulage: 'Carrier',
+        //     ibHaulage: 'Merchant',
+        // }
+    ],
 }
 
 export default function (state=initialState, action) {
@@ -16,6 +18,7 @@ export default function (state=initialState, action) {
                 ...state,
                 data: state.data.concat(action.payload)
             }
+        default:
+            return state;
     }
-    return state;
 }
