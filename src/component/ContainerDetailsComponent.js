@@ -89,6 +89,6 @@ class ContainerDetails extends Component {
     }
 }
 
-const ContainerDetailsForm = Form.create()(ContainerDetails);
+ContainerDetails = connect(mapStateToProps)(ContainerDetails)
 
-export default connect(mapStateToProps)(ContainerDetailsForm);
+export default Form.create()(ContainerDetails);
