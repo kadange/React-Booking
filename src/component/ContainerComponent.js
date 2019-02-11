@@ -43,12 +43,15 @@ class Container extends Component {
             if (err) {
                 return;
             }
-
             this.props.addContainerDetails(values);
             form.resetFields();
             this.setState({ 
                 visible: false,
             });
+        });
+        console.log('container details: ', this.props.containerDetails);
+        this.props.test.setFieldsValue({
+            containerDetails: this.props.containerDetails,
         });
     }
 
@@ -120,6 +123,7 @@ class Container extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
         containerDetails: state.containerDetails.data,
     }

@@ -7,7 +7,10 @@ import {Provider} from 'react-redux';
 import AppMain from './component/AppMain';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-const store = createStore(allReducer);
+const store = createStore(
+  allReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 class App extends Component {
   render () {
