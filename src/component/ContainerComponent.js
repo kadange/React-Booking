@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
-import { addContainerDetails } from '../action/ContainerDetailsAction';
+import { addContainerDetails, deleteContainerDetails } from '../action/ContainerDetailsAction';
 
 class Container extends Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class Container extends Component {
         this.state = { 
             visible: false,
             selectedRowKeys: [],
+            selectedRows: [],
         };
         
     }
@@ -22,8 +23,10 @@ class Container extends Component {
     }
 
     deleteSelectedRowsKeys = () => {
-        this.state.selectedRowKeys.map((rowKey) => {
-            console.log('row key: ', rowKey);
+        this.setState({ selectedRowKeys: [], selectedRows: [] })
+
+        this.state.selectedRows.map((row) => {
+            this.props.deleteContainerDetails(row);
         });
     }
 
@@ -41,7 +44,7 @@ class Container extends Component {
                 return;
             }
 
-            this.props.addContainerDetails(values);            
+            this.props.addContainerDetails(values);
             form.resetFields();
             this.setState({ 
                 visible: false,
@@ -51,6 +54,11 @@ class Container extends Component {
 
     saveFormRef = (formRef) => {
         this.formRef = formRef;
+    }
+
+    onSelectChange = (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({ selectedRowKeys, selectedRows });
     }
 
     render() {
@@ -80,15 +88,11 @@ class Container extends Component {
             key: 'ibHaulage',
         }]
 
+        const { selectedRowKeys, selectedRows } = this.state;
         const rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-                this.setState({ selectedRowKeys });
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Disabled User', // Column configuration not to be checked
-                name: record.name,
-            }),
+            selectedRowKeys, 
+            selectedRows,
+            onChange: this.onSelectChange,
         };
 
         return (
@@ -122,7 +126,10 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({addContainerDetails: addContainerDetails}, dispatch)
+    return {
+        addContainerDetails: bindActionCreators(addContainerDetails, dispatch),
+        deleteContainerDetails: bindActionCreators(deleteContainerDetails, dispatch),
+    }
 }
 
 export default connect(mapStateToProps,matchDispatchToProps)(Container);

@@ -1,14 +1,5 @@
 const initialState = {
-    data: [
-        // {
-        //     sizeType: '20GP',
-        //     quantity: 32,
-        //     grossWeight: 100,
-        //     scale: 'KG',
-        //     obHaulage: 'Carrier',
-        //     ibHaulage: 'Merchant',
-        // }
-    ],
+    data: [],
 }
 
 export default function (state=initialState, action) {
@@ -17,6 +8,11 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 data: state.data.concat(action.payload)
+            }
+        case "DELETE_CONTAINER_DETAILS":
+            return {
+                ...state,
+                data: state.data.filter(data => data !== action.payload)
             }
         default:
             return state;
