@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
-import { addContainerDetails, deleteContainerDetails, thunkAddGetContainerDetails } from '../action/ContainerDetailsAction';
+import {thunkAddContainerDetails, thunkDeleteContainerDetails } from '../action/ContainerDetailsAction';
 
 class Container extends Component {
     constructor(props) {
@@ -26,7 +26,11 @@ class Container extends Component {
         this.setState({ selectedRowKeys: [], selectedRows: [] })
 
         this.state.selectedRows.map((row) => {
-            this.props.deleteContainerDetails(row);
+            this.props.thunkDeleteContainerDetails(row).then(() => {
+                this.props.formProps.setFieldsValue({
+                    containerDetails: this.props.containerDetails,
+                });
+            });
         });
     }
 
@@ -44,7 +48,7 @@ class Container extends Component {
                 return;
             }
 
-            this.props.thunkAddGetContainerDetails(values, this.props.test).then(() => {
+            this.props.thunkAddContainerDetails(values).then(() => {
                 this.props.formProps.setFieldsValue({
                     containerDetails: this.props.containerDetails,
                 });
@@ -131,8 +135,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        deleteContainerDetails: bindActionCreators(deleteContainerDetails, dispatch),
-        thunkAddGetContainerDetails: bindActionCreators(thunkAddGetContainerDetails, dispatch),
+        thunkAddContainerDetails: bindActionCreators(thunkAddContainerDetails, dispatch),
+        thunkDeleteContainerDetails: bindActionCreators(thunkDeleteContainerDetails, dispatch),
     }
 }
 

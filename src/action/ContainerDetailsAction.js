@@ -12,6 +12,10 @@ export const deleteContainerDetails = (values) => {
     }
 }
 
-export const thunkAddGetContainerDetails = (values) => dispatch => {
+export const thunkAddContainerDetails = (values) => dispatch => {
     return Promise.resolve(dispatch(addContainerDetails(values)));
+}
+
+export const thunkDeleteContainerDetails = (values) => dispatch => {
+    return Promise.resolve(dispatch(deleteContainerDetails(values)));
 }

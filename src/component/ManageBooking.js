@@ -14,16 +14,37 @@ function mapStateToProps(state) {
     }
 }
 
+const newErrors = {
+    errors: []
+}
+
 class ManageBooking extends Component {
+    validateEndToEndPoint(values, err) {
+        if(values.fromCity === values.toCity) {
+            newErrors.errors.push({
+                message: "From City and To City should not be the same!",
+                field: "From City and To City",
+            });
+            return Object.assign({newErrors}, err);
+        }
+    }
+
     handleSubmit = (e) => {
+        newErrors.errors = [];
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            err = this.validateEndToEndPoint(values, err);
+
             if (err) {
-                console.log(err);
+                if(err.newErrors) {
+                    let fields = "";
+                    err.newErrors.errors.map((error) => {
+                        fields += error.message + '\n';
+                    })
+                    window.alert('Fix below errors: \n' + fields);
+                }
                 return;
             }
-
-            console.log('Received values of form: ', values);
         });
     }
 
