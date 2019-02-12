@@ -11,3 +11,7 @@ export const deleteContainerDetails = (values) => {
         payload: values
     }
 }
+
+export const thunkAddGetContainerDetails = (values) => dispatch => {
+    return Promise.resolve(dispatch(addContainerDetails(values)));
+}

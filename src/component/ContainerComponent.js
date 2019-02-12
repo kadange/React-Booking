@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
-import { addContainerDetails, deleteContainerDetails } from '../action/ContainerDetailsAction';
+import { addContainerDetails, deleteContainerDetails, thunkAddGetContainerDetails } from '../action/ContainerDetailsAction';
 
 class Container extends Component {
     constructor(props) {
@@ -43,15 +43,17 @@ class Container extends Component {
             if (err) {
                 return;
             }
-            this.props.addContainerDetails(values);
+
+            this.props.thunkAddGetContainerDetails(values, this.props.test).then(() => {
+                this.props.formProps.setFieldsValue({
+                    containerDetails: this.props.containerDetails,
+                });
+            })
+            
             form.resetFields();
             this.setState({ 
                 visible: false,
             });
-        });
-        console.log('container details: ', this.props.containerDetails);
-        this.props.test.setFieldsValue({
-            containerDetails: this.props.containerDetails,
         });
     }
 
@@ -60,7 +62,6 @@ class Container extends Component {
     }
 
     onSelectChange = (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         this.setState({ selectedRowKeys, selectedRows });
     }
 
@@ -123,7 +124,6 @@ class Container extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         containerDetails: state.containerDetails.data,
     }
@@ -131,8 +131,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return {
-        addContainerDetails: bindActionCreators(addContainerDetails, dispatch),
         deleteContainerDetails: bindActionCreators(deleteContainerDetails, dispatch),
+        thunkAddGetContainerDetails: bindActionCreators(thunkAddGetContainerDetails, dispatch),
     }
 }
 

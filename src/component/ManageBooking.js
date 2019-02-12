@@ -37,9 +37,12 @@ class ManageBooking extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
+            if (err) {
+                console.log(err);
+                return;
             }
+
+            console.log('Received values of form: ', values);
         });
     }
 
@@ -77,7 +80,7 @@ class ManageBooking extends Component {
                     >
                         <Form.Item label="Booking Party">
                             {getFieldDecorator('bookingParty', {
-                                rules: [{ required: true, message: 'Please input a Booking party!' }],
+                                rules: [{ required: true, message: 'Please input a Booking Party!' }],
                             })(
                                 <Input allowClear />
                             )}
@@ -157,10 +160,9 @@ class ManageBooking extends Component {
                     </Form.Item>
                     <Form.Item>
                         {getFieldDecorator('containerDetails', {
-                            // rules: [{ required: true, message: 'Please input the description!' }],
-                            // initialValue: this.props.containerDetails,
+                            rules: [{ required: true, message: 'Please input the cargo details!' }],
                         },)(
-                            <ContainerComponent test={this.props.form} />
+                            <ContainerComponent formProps={this.props.form} />
                         )}
                     </Form.Item>
                     <Button type="primary" htmlType="submit">Submit</Button>
