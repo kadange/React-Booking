@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import './js/css/index.css';
+import './main/js/css/index.css';
 import {Provider} from 'react-redux';
-import AppMain from './js/component/AppMain';
+import AppMain from './main/js/component/AppMain';
 import {BrowserRouter as Router} from 'react-router-dom';
-import store from './js/reducer/store';
+import store from './main/js/reducer/store';
 
 class App extends Component {
   render () {
