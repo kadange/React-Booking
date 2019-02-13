@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContainerComponent from './ContainerComponent';
-import { Form, Button, Divider, Input, Card, Select } from 'antd';
+import { Form, Button, Divider, Input, Card, Select, notification  } from 'antd';
 import {connect} from 'react-redux';
 import '../css/manage-booking.css';
 
@@ -17,6 +17,17 @@ function mapStateToProps(state) {
 const newErrors = {
     errors: []
 }
+
+const openNotificationWithIcon = (type, message, description) => {
+    notification.config({
+        placement: "topLeft",
+        duration: 0,
+    });
+    notification[type]({
+      message: message,
+      description: description,
+    });
+  };
 
 class ManageBooking extends Component {
     validateEndToEndPoint(values, err) {
@@ -41,7 +52,7 @@ class ManageBooking extends Component {
                     err.newErrors.errors.forEach((error) => {
                         errorMsg += error.message + '\n';
                     });
-                    window.alert('Fix below errors: \n' + errorMsg);
+                    openNotificationWithIcon('warning', 'Fix below errors!', errorMsg);
                 }
                 return;
             }
