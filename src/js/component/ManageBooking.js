@@ -37,11 +37,11 @@ class ManageBooking extends Component {
 
             if (err) {
                 if(err.newErrors) {
-                    let fields = "";
-                    err.newErrors.errors.map((error) => {
-                        fields += error.message + '\n';
-                    })
-                    window.alert('Fix below errors: \n' + fields);
+                    let errorMsg = "";
+                    err.newErrors.errors.forEach((error) => {
+                        errorMsg += error.message + '\n';
+                    });
+                    window.alert('Fix below errors: \n' + errorMsg);
                 }
                 return;
             }
