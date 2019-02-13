@@ -11,7 +11,7 @@ class Home extends Component {
         return (
             <div>
                 <h1>Welcome!</h1>
-                <h2><strong>Time: <Clock format="h:mm:ss A" ticking={true} interval={1000} /></strong></h2>
+                <h2>Time: <Clock format="h:mm:ss A" ticking={true} interval={1000} /></h2>
                 <div style={{ width: 500, border: '1px solid #d9d9d9', borderRadius: 4 }}>
                     <Calendar fullscreen={false} onPanelChange={this.onPanelChange} />
                 </div>
