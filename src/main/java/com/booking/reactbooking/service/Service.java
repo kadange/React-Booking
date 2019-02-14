@@ -27,8 +27,18 @@ public class Service {
         return bookingNumber;
     }
 
-    public void process() {
+    public void saveBooking() {
         //persist in DB
+    }
+
+    public Booking findBookingByBookingNumber(String bookingNumber) {
+        //search booking by booking number
+        return null;
+    }
+
+    public Booking deleteBookingByBookingNumber(String bookingNumber) {
+        //delete booking by booking number
+        return null;
     }
 
     public String getBookingNumber() {
