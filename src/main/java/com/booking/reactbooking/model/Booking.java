@@ -3,6 +3,7 @@ package com.booking.reactbooking.model;
 import java.util.List;
 
 public class Booking {
+    private String bookingNumber;
     private String bookingOffice;
     private String bookingParty;
     private String shipper;
@@ -13,6 +14,14 @@ public class Booking {
     private String cargoDescription;
     private String cargoNature;
     List<ContainerDetails> containerDetails;
+
+    public String getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
 
     public String getBookingOffice() {
         return bookingOffice;
