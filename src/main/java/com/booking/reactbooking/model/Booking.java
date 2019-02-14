@@ -1,5 +1,6 @@
 package com.booking.reactbooking.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Booking {
@@ -13,7 +14,7 @@ public class Booking {
     private String toCity;
     private String cargoDescription;
     private String cargoNature;
-    List<ContainerDetails> containerDetails;
+    private List<ContainerDetails> containerDetails;
 
     public String getBookingNumber() {
         return bookingNumber;
@@ -96,7 +97,7 @@ public class Booking {
     }
 
     public List<ContainerDetails> getContainerDetails() {
-        return containerDetails;
+        return new ArrayList<>(containerDetails);
     }
 
     public void setContainerDetails(List<ContainerDetails> containerDetails) {

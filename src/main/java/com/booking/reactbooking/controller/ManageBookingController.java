@@ -2,7 +2,9 @@ package com.booking.reactbooking.controller;
 
 import com.booking.reactbooking.model.Booking;
 import com.booking.reactbooking.model.Greeting;
+import com.booking.reactbooking.service.Service;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -20,7 +22,12 @@ public class ManageBookingController {
 //    }
 
     @PostMapping("/save")
-    public Booking save(@RequestBody Booking booking) {
-        return booking;
+    public String save(@RequestBody Booking booking) {
+        boolean isCreate = StringUtils.isEmpty(booking.getBookingNumber());
+        Service service = new Service(isCreate, booking);
+        if(isCreate) {
+            return service.getBookingNumber();
+        }
+        return "Booking Updated!";
     }
 }
