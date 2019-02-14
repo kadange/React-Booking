@@ -1,8 +1,10 @@
 package com.booking.reactbooking.model;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Booking {
     private String bookingNumber;
     private String bookingOffice;
