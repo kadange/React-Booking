@@ -1,7 +1,6 @@
 package com.booking.reactbooking.service;
 
 import com.booking.reactbooking.model.Booking;
-
 import static java.lang.Math.random;
 
 public class Service {
@@ -13,6 +12,7 @@ public class Service {
         if(isCreate) {
             this.booking.setBookingNumber(createBookingNumber());
         }
+        saveBooking(booking);
     }
 
     private String createBookingNumber() {
@@ -27,7 +27,7 @@ public class Service {
         return bookingNumber;
     }
 
-    public void saveBooking() {
+    public void saveBooking(Booking booking) {
         //persist in DB
     }
 

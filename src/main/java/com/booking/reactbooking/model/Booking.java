@@ -1,22 +1,50 @@
 package com.booking.reactbooking.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="Booking")
 public class Booking {
+
+    @Id
+    @Column(name="booking_number")
     private String bookingNumber;
+
+    @Column(name="booking_office")
     private String bookingOffice;
+
+    @Column(name="booking_party")
     private String bookingParty;
+
+    @Column(name="shipper")
     private String shipper;
+
+    @Column(name="forwarder")
     private String forwarder;
+
+    @Column(name="consignee")
     private String consignee;
+
+    @Column(name="from_city")
     private String fromCity;
+
+    @Column(name="to_city")
     private String toCity;
+
+    @Column(name="cargo_description")
     private String cargoDescription;
+
+    @Column(name="cargo_nature")
     private String cargoNature;
+
+    @OneToMany(fetch=FetchType.LAZY)
     private List<ContainerDetails> containerDetails;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName="user_id")
+    private User user;
 
     public String getBookingNumber() {
         return bookingNumber;
@@ -104,5 +132,13 @@ public class Booking {
 
     public void setContainerDetails(List<ContainerDetails> containerDetails) {
         this.containerDetails = containerDetails;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

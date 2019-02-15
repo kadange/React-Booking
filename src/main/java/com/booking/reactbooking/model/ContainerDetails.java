@@ -1,12 +1,38 @@
 package com.booking.reactbooking.model;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name="Container_Details")
 public class ContainerDetails {
-    String sizeType;
-    int quantity;
-    long grossWeight;
-    String scale;
-    String obHaulage;
-    String ibHaulage;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="id")
+    private long id;
+
+    @Column(name="size_type")
+    private String sizeType;
+
+    @Column(name="quantity")
+    private int quantity;
+
+    @Column(name="gross_weight")
+    private long grossWeight;
+
+    @Column(name="scale")
+    private String scale;
+
+    @Column(name="ob_haulage")
+    private String obHaulage;
+
+    @Column(name="ib_haulage")
+    private String ibHaulage;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="booking_number", referencedColumnName="booking_number")
+    private Booking booking;
 
     public String getSizeType() {
         return sizeType;
@@ -54,5 +80,33 @@ public class ContainerDetails {
 
     public void setIbHaulage(String ibHaulage) {
         this.ibHaulage = ibHaulage;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContainerDetails that = (ContainerDetails) o;
+        return this.id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public String toString() {
+        return "ContainerDetails{" +
+                "id=" + this.id +
+                '}';
     }
 }
