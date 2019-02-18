@@ -1,18 +1,29 @@
 package com.booking.reactbooking.service;
 
 import com.booking.reactbooking.model.Booking;
+import com.booking.reactbooking.repository.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import static java.lang.Math.random;
 
 public class Service {
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
     private Booking booking;
 
-    public Service(boolean isCreate, Booking booking) {
+    public Service(Booking booking) {
         this.booking = booking;
-        if(isCreate) {
+        if(isCreate()) {
             this.booking.setBookingNumber(createBookingNumber());
         }
         saveBooking(booking);
+    }
+
+    private boolean isCreate() {
+        return StringUtils.isEmpty(this.booking.getBookingNumber());
     }
 
     private String createBookingNumber() {
@@ -29,6 +40,7 @@ public class Service {
 
     public void saveBooking(Booking booking) {
         //persist in DB
+//        bookingRepository.save(booking);
     }
 
     public Booking findBookingByBookingNumber(String bookingNumber) {
@@ -43,5 +55,9 @@ public class Service {
 
     public String getBookingNumber() {
         return this.booking.getBookingNumber();
+    }
+
+    public Booking getBookingTest() {
+        return this.booking;
     }
 }
