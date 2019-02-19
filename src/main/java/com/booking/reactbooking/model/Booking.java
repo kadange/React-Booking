@@ -45,7 +45,8 @@ public class Booking {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "booking", cascade = CascadeType.ALL)
     private List<ContainerDetails> containerDetails;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @JsonIgnoreProperties("booking")
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
 

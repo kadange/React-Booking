@@ -1,5 +1,7 @@
 package com.booking.reactbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +21,8 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "user")
     private List<Booking> booking;
 
     public String getUsername() {
