@@ -94,6 +94,12 @@ class Container extends Component {
             title: "IB Haulage",
             dataIndex: "ibHaulage",
             key: 'ibHaulage',
+        }, {
+            title: "",
+            key: 'operation',
+            render: operation => (
+                <Button type="default" size="small" >Edit</Button>
+            )
         }]
 
         const { selectedRowKeys, selectedRows } = this.state;
@@ -114,7 +120,7 @@ class Container extends Component {
                 }
             >
                 <Modal
-                    title="Basic Modal"
+                    title="Container Details"
                     visible={this.state.visible}
                     onOk={this.handleSubmit}
                     onCancel={this.handleCancel}
