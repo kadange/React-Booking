@@ -3,6 +3,7 @@ import ContainerComponent from './ContainerComponent';
 import { Form, Button, Divider, Input, Card, Select, notification  } from 'antd';
 import {connect} from 'react-redux';
 import '../css/manage-booking.css';
+import * as ManageBookingAction from '../action/ManageBookingAction';
 
 const Option = Select.Option;
 
@@ -13,6 +14,12 @@ function mapStateToProps(state) {
         containerDetails: state.containerDetails.data,
     }
 }
+
+const matchDispatchToProps = dispatch => ({
+    onSubmit(values) {
+        dispatch(ManageBookingAction.create(values));
+    }
+})
 
 const newErrors = {
     errors: []
@@ -56,6 +63,7 @@ class ManageBooking extends Component {
                 }
                 return;
             }
+            this.props.onSubmit(values);
         });
     }
 
@@ -185,6 +193,6 @@ class ManageBooking extends Component {
     }
 }
 
-ManageBooking = connect( mapStateToProps )(ManageBooking);
+ManageBooking = connect( mapStateToProps, matchDispatchToProps )(ManageBooking);
 
 export default Form.create()(ManageBooking);
