@@ -1,10 +1,13 @@
 package com.booking.reactbooking.controller;
 
 import com.booking.reactbooking.model.Booking;
+import com.booking.reactbooking.model.Greeting;
 import com.booking.reactbooking.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.Math.random;
 
@@ -12,28 +15,29 @@ import static java.lang.Math.random;
 @RestController
 public class ManageBookingController {
 
-//    private static final String template = "Hello, %s!";
-//    private final AtomicLong counter = new AtomicLong();
-//
-//    @RequestMapping("/greeting")
-//    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-//        return new Greeting(counter.incrementAndGet(),
-//                String.format(template, name));
-//    }
+    private static final String template = "Hello, I am %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/greeting")
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, name));
+    }
 
     @Autowired
     BookingRepository bookingRepository;
 
     @PostMapping("/save")
-    public String save(@RequestBody Booking booking) {
+    public Booking save(@RequestBody Booking booking) {
         boolean isCreate = StringUtils.isEmpty(booking.getBookingNumber());
         booking.setBookingNumber(createBookingNumber());
-//        bookingRepository.save(booking);
+        bookingRepository.save(booking);
 
-        if (isCreate) {
-            return booking.getBookingNumber();
-        }
-        return "Booking Updated!";
+//        if (isCreate) {
+//            return booking.getBookingNumber();
+//        }
+//        return "Booking Updated!";
+        return booking;
     }
 
     private String createBookingNumber() {
@@ -51,22 +55,7 @@ public class ManageBookingController {
 
     @GetMapping("/test")
     public Booking test(@RequestParam(value = "bookingId") String bookingId) {
-        bookingRepository.findByBookingNumber(bookingId);
-        return new Booking();
+        return bookingRepository.findByBookingNumber(bookingId);
     }
 
-    /**
-     * creating bean factory and use to get bean
-     * https://stackoverflow.com/questions/35108778/spring-bean-with-runtime-constructor-arguments
-     */
-//    @Autowired
-//    BeanFactory beanFactory;
-//
-//    @GetMapping("/test")
-//    public Booking test(@RequestParam(value="bookingId") String bookingId) {
-//        Booking booking = new Booking();
-//        booking.setBookingNumber(bookingId);
-//        Service service = beanFactory.getBean(Service.class,booking);
-//        return service.getBookingTest();
-//    }
 }

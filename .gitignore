@@ -48,3 +48,5 @@ yarn-error.log*
 /.nb-gradle/
 /build/
 
+.gradle
+*out

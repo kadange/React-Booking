@@ -1,5 +1,7 @@
 package com.booking.reactbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +41,12 @@ public class Booking {
     @Column(name="cargo_nature")
     private String cargoNature;
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @JsonIgnoreProperties("booking")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "booking", cascade = CascadeType.ALL)
     private List<ContainerDetails> containerDetails;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_id", referencedColumnName="user_id")
+    @JoinColumn(name="user_id")
     private User user;
 
     public String getBookingNumber() {

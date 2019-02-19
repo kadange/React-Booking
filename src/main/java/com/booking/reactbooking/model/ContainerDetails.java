@@ -1,5 +1,7 @@
 package com.booking.reactbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,7 +10,7 @@ import java.util.Objects;
 public class ContainerDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private long id;
 
@@ -30,8 +32,9 @@ public class ContainerDetails {
     @Column(name="ib_haulage")
     private String ibHaulage;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="booking_number", referencedColumnName="booking_number")
+    @JsonIgnoreProperties("containerDetails")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "booking_number")
     private Booking booking;
 
     public String getSizeType() {

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="user_id")
     private long userId;
 
@@ -19,7 +19,7 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
     private List<Booking> booking;
 
     public String getUsername() {
