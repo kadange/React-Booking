@@ -28,16 +28,18 @@ public class ManageBookingController {
     BookingRepository bookingRepository;
 
     @PostMapping("/save")
-    public Booking save(@RequestBody Booking booking) {
-        boolean isCreate = StringUtils.isEmpty(booking.getBookingNumber());
-        booking.setBookingNumber(createBookingNumber());
+    public String save(@RequestBody Booking booking) {
+        String response = "Booking Updated!";
+        booking.fixContainers();
+
+        if (StringUtils.isEmpty(booking.getBookingNumber())) {
+            booking.setBookingNumber(createBookingNumber());
+            response =  booking.getBookingNumber();
+        }
+
         bookingRepository.save(booking);
 
-//        if (isCreate) {
-//            return booking.getBookingNumber();
-//        }
-//        return "Booking Updated!";
-        return booking;
+        return response;
     }
 
     private String createBookingNumber() {
