@@ -7,23 +7,25 @@ import org.springframework.util.StringUtils;
 
 import static java.lang.Math.random;
 
+@org.springframework.stereotype.Service
 public class Service {
 
     @Autowired
     private BookingRepository bookingRepository;
 
-    private Booking booking;
+    public String saveBooking(Booking booking) {
+        //persist in DB
+        String response = "Booking Updated!";
+        booking.fixContainers();
 
-    public Service(Booking booking) {
-        this.booking = booking;
-        if(isCreate()) {
-            this.booking.setBookingNumber(createBookingNumber());
+        if (StringUtils.isEmpty(booking.getBookingNumber())) {
+            booking.setBookingNumber(createBookingNumber());
+            response =  booking.getBookingNumber();
         }
-        saveBooking(booking);
-    }
 
-    private boolean isCreate() {
-        return StringUtils.isEmpty(this.booking.getBookingNumber());
+        bookingRepository.save(booking);
+
+        return response;
     }
 
     private String createBookingNumber() {
@@ -38,26 +40,13 @@ public class Service {
         return bookingNumber;
     }
 
-    public void saveBooking(Booking booking) {
-        //persist in DB
-//        bookingRepository.save(booking);
-    }
-
     public Booking findBookingByBookingNumber(String bookingNumber) {
         //search booking by booking number
-        return null;
+        return bookingRepository.findByBookingNumber(bookingNumber);
     }
 
     public Booking deleteBookingByBookingNumber(String bookingNumber) {
         //delete booking by booking number
         return null;
-    }
-
-    public String getBookingNumber() {
-        return this.booking.getBookingNumber();
-    }
-
-    public Booking getBookingTest() {
-        return this.booking;
     }
 }
