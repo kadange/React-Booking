@@ -145,4 +145,8 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void fixContainers() {
+        this.containerDetails.forEach(container -> container.setBooking(this));
+    }
 }
