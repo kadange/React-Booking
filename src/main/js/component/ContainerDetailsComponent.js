@@ -28,7 +28,9 @@ class ContainerDetails extends Component {
             <div>
                 <Form layout="vertical">
                     <Form.Item label="SizeType">
-                        {getFieldDecorator('sizeType')
+                        {getFieldDecorator('sizeType', {
+                            initialValue: this.props.defaultValues.sizeType,
+                        })
                         (<Select
                             showSearch
                             placeholder="Select a sizetype"
@@ -39,15 +41,21 @@ class ContainerDetails extends Component {
                         </Select>)}
                     </Form.Item>
                     <Form.Item label="Quantity">
-                        {getFieldDecorator('quantity')
+                        {getFieldDecorator('quantity', {
+                            initialValue: this.props.defaultValues.quantity
+                        })
                         (<InputNumber min={1} allowClear />)}
                     </Form.Item>
                     <Form.Item label="Gross Weight">
-                        {getFieldDecorator('grossWeight')
+                        {getFieldDecorator('grossWeight', {
+                            initialValue: this.props.defaultValues.grossWeight
+                        })
                         (<InputNumber min={0} step={0.1} allowClear />)}
                     </Form.Item>
                     <Form.Item label="Scale">
-                        {getFieldDecorator('scale')
+                        {getFieldDecorator('scale', {
+                            initialValue: this.props.defaultValues.scale
+                        })
                         (<Select
                             showSearch
                             placeholder="Select a scale"
@@ -60,7 +68,9 @@ class ContainerDetails extends Component {
                         </Select>)}
                     </Form.Item>
                     <Form.Item label="OB Haulage">
-                        {getFieldDecorator('obHaulage')
+                        {getFieldDecorator('obHaulage', {
+                            initialValue: this.props.defaultValues.obHaulage
+                        })
                         (<Select
                             showSearch
                             placeholder="Select a haulage"
@@ -72,7 +82,9 @@ class ContainerDetails extends Component {
                         </Select>)}
                     </Form.Item>
                     <Form.Item label="IB Haulage">
-                        {getFieldDecorator('ibHaulage')
+                        {getFieldDecorator('ibHaulage', {
+                            initialValue: this.props.defaultValues.ibHaulage
+                        })
                         (<Select
                             showSearch
                             placeholder="Select a haulage"

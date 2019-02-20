@@ -14,6 +14,16 @@ export default function (state=initialState, action) {
                 ...state,
                 data: state.data.filter(data => data !== action.payload)
             }
+        case "UPDATE_CONTAINER_DETAILS":
+            console.log("");
+            let index = state.data.map((data) => {
+                return data.key;
+            }).indexOf(action.payload.key)
+            state.data[index] = action.payload;
+            return {
+                ...state,
+                data: state.data
+            }
         default:
             return state;
     }

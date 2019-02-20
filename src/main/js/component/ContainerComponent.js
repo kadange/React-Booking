@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card, Button, Table, Modal } from 'antd';
 import ContainerDetails from './ContainerDetailsComponent';
-import {thunkAddContainerDetails, thunkDeleteContainerDetails } from '../action/ContainerDetailsAction';
+import {thunkAddContainerDetails, thunkDeleteContainerDetails, thunkUpdateContainerDetails } from '../action/ContainerDetailsAction';
 
 class Container extends Component {
     constructor(props) {
@@ -12,13 +12,17 @@ class Container extends Component {
             visible: false,
             selectedRowKeys: [],
             selectedRows: [],
+            rowToUpdate: {},
+            isEditRow: false,
+            keyValue: 0,
         };
         
     }
 
-    showModal = () => {
+    addContainerDetails = () => {
         this.setState({
             visible: true,
+            isEditRow: false,
         });
     }
 
@@ -34,10 +38,19 @@ class Container extends Component {
         });
     }
 
+    onEditcontainerDetail = (row) => {
+        this.setState({
+            rowToUpdate: row,
+            visible: true,
+            isEditRow: true,
+        });
+    }
+
     handleCancel = (e) => {
         console.log(e);
         this.setState({
             visible: false,
+            rowToUpdate: {},
         });
     }
 
@@ -48,15 +61,32 @@ class Container extends Component {
                 return;
             }
 
-            this.props.thunkAddContainerDetails(values).then(() => {
-                this.props.formProps.setFieldsValue({
-                    containerDetails: this.props.containerDetails,
-                });
-            })
+            if(this.state.isEditRow) {
+                let newUpdateValue = Object.assign({key: this.state.rowToUpdate.key}, values);
+                this.props.thunkUpdateContainerDetails(newUpdateValue).then(() => {
+                    this.props.formProps.setFieldsValue({
+                        containerDetails: this.props.containerDetails,
+                    });
+                })
+            } else {
+                let currKeyValue = this.state.keyValue;
+                this.setState({
+                    keyValue: currKeyValue + 1,
+                }, () => {
+                    values = Object.assign({key: this.state.keyValue}, values);
+                })
+
+                this.props.thunkAddContainerDetails(values).then(() => {
+                    this.props.formProps.setFieldsValue({
+                        containerDetails: this.props.containerDetails,
+                    });
+                })
+            }
             
             form.resetFields();
             this.setState({ 
                 visible: false,
+                rowToUpdate: {},
             });
         });
     }
@@ -97,8 +127,8 @@ class Container extends Component {
         }, {
             title: "",
             key: 'operation',
-            render: operation => (
-                <Button type="default" size="small" >Edit</Button>
+            render: (record) => (
+                <Button type="default" size="small" onClick={() => this.onEditcontainerDetail(record)}>Edit</Button>
             )
         }]
 
@@ -114,7 +144,7 @@ class Container extends Component {
                 size="small"
                 extra={
                     <div>
-                        <Button type="default" onClick={this.showModal}>Add</Button>
+                        <Button type="default" onClick={this.addContainerDetails}>Add</Button>
                         <Button type="danger" onClick={this.deleteSelectedRowsKeys}>Delete</Button>
                     </div>
                 }
@@ -125,7 +155,7 @@ class Container extends Component {
                     onOk={this.handleSubmit}
                     onCancel={this.handleCancel}
                 >
-                    <ContainerDetails wrappedComponentRef={this.saveFormRef} />
+                    <ContainerDetails wrappedComponentRef={this.saveFormRef} defaultValues={this.state.rowToUpdate} />
                 </Modal>
                 <Table rowSelection={rowSelection} dataSource={this.props.containerDetails} size="small" columns={columns} scroll={{ x: '100%' }} />
             </Card>
@@ -143,6 +173,7 @@ function matchDispatchToProps(dispatch) {
     return {
         thunkAddContainerDetails: bindActionCreators(thunkAddContainerDetails, dispatch),
         thunkDeleteContainerDetails: bindActionCreators(thunkDeleteContainerDetails, dispatch),
+        thunkUpdateContainerDetails: bindActionCreators(thunkUpdateContainerDetails, dispatch),
     }
 }
 
