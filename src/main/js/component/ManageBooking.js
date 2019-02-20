@@ -45,6 +45,7 @@ class ManageBooking extends Component {
             });
             return Object.assign({newErrors}, err);
         }
+        return err;
     }
 
     handleSubmit = (e) => {
