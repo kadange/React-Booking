@@ -2,8 +2,19 @@ import React, {Component} from 'react';
 import ManageBooking from './ManageBooking';
 import Home from './Home';
 import Search from './Search';
+import {connect} from 'react-redux';
+import * as ManageBookingAction from '../action/ManageBookingAction';
 
 class AppContent extends Component {
+    componentDidMount() {
+        let bookingNumber = this.props.bookingNumber;
+        console.log('Booking Number: ',bookingNumber);
+        if(bookingNumber && bookingNumber !== null) {
+            let test = this.props.onLoad(bookingNumber);
+            console.log('test: ', test);
+            console.log('Booking: ',this.props.data);
+        }
+    }
     
     render() {
         let body = null;
@@ -26,4 +37,16 @@ class AppContent extends Component {
     }
 }
 
-export default AppContent;
+const matchDispatchToProps = dispatch => ({
+    onLoad(values) {
+        return dispatch(ManageBookingAction.update(values));
+    }
+})
+
+function mapStateToProps(state) {
+    return {
+        data: state.manageBooking.data,
+    }
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(AppContent);

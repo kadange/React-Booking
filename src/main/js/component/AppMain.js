@@ -10,14 +10,14 @@ const { Header, Content, Footer } = Layout;
 
 class AppPage extends Component {
 
-    reinitContent(menu, activeMenu) {
+    reinitContent(params, activeMenu) {
         let content;
-        switch(menu) {
+        switch(params.menu) {
             case "main":
                 content = <AppContent activeMenu="MAIN_MENU" />
                 break
             case "manage":
-                content = <AppContent activeMenu="MANAGE_MENU" />
+                content = <AppContent activeMenu="MANAGE_MENU" bookingNumber={params.bookingNumber}/>
                 break
             case "search":
                 content = <AppContent activeMenu="SEARCH_MENU" />
@@ -54,8 +54,12 @@ class AppPage extends Component {
                         <Route exact path="/" render={() => (
                             this.reinitContent("MAIN_MENU")
                         )}/>
-                        <Route path="/:menu" render={({match}) => (
-                            this.reinitContent(match.params.menu, this.props.activeMenu)
+                        <Route exact path="/:menu" render={({match}) => (
+                            this.reinitContent(match.params, this.props.activeMenu)
+                        )}/>
+                        <Route exact path="/manage/shipmentNumber=:bookingNumber" render={({match}) => (
+                            match.params = Object.assign({menu: 'manage'},match.params),
+                            this.reinitContent(match.params, this.props.activeMenu)
                         )}/>
                     </div>
                 </Content>
