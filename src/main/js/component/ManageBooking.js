@@ -86,7 +86,6 @@ class ManageBooking extends Component {
     }
 
     render() {
-        console.log('Booking: ', this.props.manageBooking);
         const { getFieldDecorator } = this.props.form;
         return (
             <div style={{ borderStyle: "groove", padding: "10px"}}>
@@ -94,6 +93,7 @@ class ManageBooking extends Component {
                     <Form.Item label="Booking Office">
                         {getFieldDecorator('bookingOffice', {
                             rules: [{ required: true, message: 'Please input a Booking Office!' }],
+                            initialValue: this.props.manageBooking.bookingOffice,
                         })(
                             <Input allowClear />
                         )}
@@ -105,6 +105,7 @@ class ManageBooking extends Component {
                         <Form.Item label="Booking Party">
                             {getFieldDecorator('bookingParty', {
                                 rules: [{ required: true, message: 'Please input a Booking Party!' }],
+                                initialValue: this.props.manageBooking.bookingParty,
                             })(
                                 <Input allowClear />
                             )}
@@ -112,6 +113,7 @@ class ManageBooking extends Component {
                         <Form.Item label="Shipper">
                             {getFieldDecorator('shipper', {
                                 rules: [{ required: true, message: 'Please input a Shipper!' }],
+                                initialValue: this.props.manageBooking.shipper,
                             })(
                                 <Input allowClear />
                             )}
@@ -119,6 +121,7 @@ class ManageBooking extends Component {
                         <Form.Item label="Forwarder">
                             {getFieldDecorator('forwarder', {
                                 rules: [{ required: true, message: 'Please input a Forwarder!' }],
+                                initialValue: this.props.manageBooking.forwarder,
                             })(
                                 <Input allowClear />
                             )}
@@ -126,6 +129,7 @@ class ManageBooking extends Component {
                         <Form.Item label="Consignee">
                             {getFieldDecorator('consignee', {
                                 rules: [{ required: true, message: 'Please input a Consignee!' }],
+                                initialValue: this.props.manageBooking.consignee,
                             })(
                                 <Input allowClear />
                             )}
@@ -134,6 +138,7 @@ class ManageBooking extends Component {
                     <Form.Item className="City" label="From City">
                         {getFieldDecorator('fromCity', {
                             rules: [{ required: true, message: 'Please select a city!' }],
+                            initialValue: this.props.manageBooking.fromCity,
                         })(
                             <Select
                                 showSearch
@@ -148,6 +153,7 @@ class ManageBooking extends Component {
                     <Form.Item className="City" label="To City">
                         {getFieldDecorator('toCity', {
                             rules: [{ required: true, message: 'Please select a city!' }],
+                            initialValue: this.props.manageBooking.toCity,
                         })(
                             <Select
                                 showSearch
@@ -163,6 +169,7 @@ class ManageBooking extends Component {
                     <Form.Item className="CargoDetail" label="Cargo Nature">
                         {getFieldDecorator('cargoNature', {
                             rules: [{ required: true, message: 'Please select the cargo nature!' }],
+                            initialValue: this.props.manageBooking.cargoNature,
                         })(
                             <Select
                                 showSearch
@@ -178,6 +185,7 @@ class ManageBooking extends Component {
                     <Form.Item className="CargoDetail" label="Description">
                         {getFieldDecorator('cargoDescription', {
                             rules: [{ required: true, message: 'Please input the description!' }],
+                            initialValue: this.props.manageBooking.cargoDescription,
                         })(
                             <Input allowClear />
                         )}
@@ -185,6 +193,7 @@ class ManageBooking extends Component {
                     <Form.Item>
                         {getFieldDecorator('containerDetails', {
                             rules: [{ required: true, message: 'Please input the cargo details!' }],
+                            initialValue: this.props.manageBooking.containerDetails,
                         },)(
                             <ContainerComponent formProps={this.props.form} />
                         )}

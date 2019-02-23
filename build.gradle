@@ -1,26 +1,30 @@
-buildscript {
-    ext {
-        springBootVersion = '2.0.3.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+//buildscript {
+//    ext {
+//        springBootVersion = '2.0.3.RELEASE'
+//    }
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+
+plugins {
+    id "org.springframework.boot" version "2.1.0.RELEASE"
 }
 
 apply plugin: 'java'
+description = 'react-booking'
+sourceCompatibility = '1.8'
+
+bootJar {
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.booking'
 version = '0.0.1-SNAPSHOT'
-description = 'react-booking'
-sourceCompatibility = '1.8'
-
-bootJar {
     baseName = 'gs-accessing-data-mysql'
     version =  '0.1.0'
 }

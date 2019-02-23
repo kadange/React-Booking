@@ -99,6 +99,14 @@ class Container extends Component {
         this.setState({ selectedRowKeys, selectedRows });
     }
 
+    componentWillReceiveProps(nextProp) {
+        if(this.props.manageBooking !== nextProp.manageBooking) {
+            nextProp.manageBooking.containerDetails.map(container => {
+                this.props.thunkAddContainerDetails(container)
+            })
+        }
+    }
+
     render() {
         const columns = [{
             title: "Size/Type",
@@ -166,6 +174,7 @@ class Container extends Component {
 function mapStateToProps(state) {
     return {
         containerDetails: state.containerDetails.data,
+        manageBooking: state.manageBooking.data,
     }
 }
 
