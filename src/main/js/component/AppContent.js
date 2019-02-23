@@ -36,7 +36,7 @@ class AppContent extends Component {
 
 const matchDispatchToProps = dispatch => ({
     onLoad(values) {
-        return dispatch(ManageBookingAction.update(values));
+        dispatch(ManageBookingAction.update(values));
     }
 })
 

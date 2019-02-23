@@ -12,6 +12,7 @@ function mapStateToProps(state) {
         cities: state.cities,
         cgoNatures: state.cargoNatures,
         containerDetails: state.containerDetails.data,
+        manageBooking: state.manageBooking.data,
     }
 }
 
@@ -85,6 +86,7 @@ class ManageBooking extends Component {
     }
 
     render() {
+        console.log('Booking: ', this.props.manageBooking);
         const { getFieldDecorator } = this.props.form;
         return (
             <div style={{ borderStyle: "groove", padding: "10px"}}>
