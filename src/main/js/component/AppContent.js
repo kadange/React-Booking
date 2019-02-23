@@ -8,11 +8,8 @@ import * as ManageBookingAction from '../action/ManageBookingAction';
 class AppContent extends Component {
     componentDidMount() {
         let bookingNumber = this.props.bookingNumber;
-        console.log('Booking Number: ',bookingNumber);
         if(bookingNumber && bookingNumber !== null) {
-            let test = this.props.onLoad(bookingNumber);
-            console.log('test: ', test);
-            console.log('Booking: ',this.props.data);
+            this.props.onLoad(bookingNumber);
         }
     }
     
@@ -43,10 +40,4 @@ const matchDispatchToProps = dispatch => ({
     }
 })
 
-function mapStateToProps(state) {
-    return {
-        data: state.manageBooking.data,
-    }
-}
-
-export default connect(mapStateToProps,matchDispatchToProps)(AppContent);
+export default connect(null,matchDispatchToProps)(AppContent);

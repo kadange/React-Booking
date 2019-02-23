@@ -11,7 +11,6 @@ export const create = (values) => {
 };
 
 export const update = bookingNumber => async dispatch => {
-    const response = await axios.get(`/retrieveBooking?bookingNumber=${bookingNumber}`)
-    console.log('response: ', response.data);
+    const response = await axios.get(`/retrieveBooking?bookingNumber=${bookingNumber}`);
     dispatch({ type: "GET_SHIPMENT_DETAILS", payload: response.data });
 }
