@@ -65,6 +65,7 @@ class ManageBooking extends Component {
                 }
                 return;
             }
+            values = Object.assign({bookingNumber: this.props.manageBooking.bookingNumber}, values);
             this.props.onSubmit(values);
         });
     }

@@ -20,7 +20,7 @@ public class Service {
 
         if (StringUtils.isEmpty(booking.getBookingNumber())) {
             booking.setBookingNumber(createBookingNumber());
-            response =  booking.getBookingNumber();
+            response =  "Booking Number created: " + booking.getBookingNumber();
         }
 
         bookingRepository.save(booking);
