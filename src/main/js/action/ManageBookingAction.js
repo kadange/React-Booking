@@ -1,11 +1,12 @@
 import axios from '../../js/middleware/api'
+import { message } from 'antd'; 
 
 export const create = (values) => {
     return () => {
         return axios
             .post('/save', values)
             .then((response) => {
-                console.log('values after call `/save`: ',response.data);
+                message.info(`Booking Number created: ${response.data}`);
             })
     }
 };
