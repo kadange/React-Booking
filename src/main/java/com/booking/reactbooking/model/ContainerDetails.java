@@ -21,7 +21,7 @@ public class ContainerDetails {
     private int quantity;
 
     @Column(name="gross_weight")
-    private long grossWeight;
+    private float grossWeight;
 
     @Column(name="scale")
     private String scale;
@@ -36,6 +36,14 @@ public class ContainerDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "booking_number")
     private Booking booking;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getSizeType() {
         return sizeType;
@@ -53,11 +61,11 @@ public class ContainerDetails {
         this.quantity = quantity;
     }
 
-    public long getGrossWeight() {
+    public float getGrossWeight() {
         return grossWeight;
     }
 
-    public void setGrossWeight(long grossWeight) {
+    public void setGrossWeight(float grossWeight) {
         this.grossWeight = grossWeight;
     }
 
