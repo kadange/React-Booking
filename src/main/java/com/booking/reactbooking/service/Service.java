@@ -15,17 +15,35 @@ public class Service {
 
     public String saveBooking(Booking booking) {
         //persist in DB
-        String response = "Booking Updated!";
         booking.fixContainers();
 
         if (StringUtils.isEmpty(booking.getBookingNumber())) {
-            booking.setBookingNumber(createBookingNumber());
-            response =  "Booking Number created: " + booking.getBookingNumber();
+            return createBooking(booking);
+        }else{
+            return updateBooking(booking);
         }
+    }
 
+    private String updateBooking(Booking booking) {
+//        Booking newBooking = findBookingByBookingNumber(booking.getBookingNumber());
+//        newBooking.setBookingOffice(booking.getBookingOffice());
+//        newBooking.setBookingParty(booking.getBookingParty());
+//        newBooking.setShipper(booking.getShipper());
+//        newBooking.setForwarder(booking.getForwarder());
+//        newBooking.setConsignee(booking.getConsignee());
+//        newBooking.setFromCity(booking.getFromCity());
+//        newBooking.setToCity(booking.getToCity());
+//        newBooking.setCargoNature(booking.getCargoNature());
+//        newBooking.setCargoDescription(booking.getCargoDescription());
+//        newBooking.setContainerDetails(booking.getContainerDetails());
         bookingRepository.save(booking);
+        return "Booking Updated!";
+    }
 
-        return response;
+    private String createBooking(Booking booking) {
+        booking.setBookingNumber(createBookingNumber());
+        bookingRepository.save(booking);
+        return "Booking Number created: " + booking.getBookingNumber();
     }
 
     private String createBookingNumber() {
