@@ -42,7 +42,7 @@ public class Booking {
     private String cargoNature;
 
     @JsonIgnoreProperties("booking")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "booking", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContainerDetails> containerDetails;
 
     @JsonIgnoreProperties("booking")

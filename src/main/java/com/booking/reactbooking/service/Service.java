@@ -1,9 +1,14 @@
 package com.booking.reactbooking.service;
 
 import com.booking.reactbooking.model.Booking;
+import com.booking.reactbooking.model.ContainerDetails;
 import com.booking.reactbooking.repository.BookingRepository;
+import com.booking.reactbooking.repository.ContainerDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.random;
 
@@ -13,29 +18,30 @@ public class Service {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @Autowired
+    private ContainerDetailsRepository containerDetailsRepository;
+
     public String saveBooking(Booking booking) {
         //persist in DB
-        booking.fixContainers();
+        try{
+            booking.fixContainers();
 
-        if (StringUtils.isEmpty(booking.getBookingNumber())) {
-            return createBooking(booking);
-        }else{
-            return updateBooking(booking);
+            if (StringUtils.isEmpty(booking.getBookingNumber())) {
+                return createBooking(booking);
+            }else{
+                return updateBooking(booking);
+            }
+        }catch(Exception e) {
+            return "Exception occurred! Please try again...";
         }
     }
 
     private String updateBooking(Booking booking) {
-//        Booking newBooking = findBookingByBookingNumber(booking.getBookingNumber());
-//        newBooking.setBookingOffice(booking.getBookingOffice());
-//        newBooking.setBookingParty(booking.getBookingParty());
-//        newBooking.setShipper(booking.getShipper());
-//        newBooking.setForwarder(booking.getForwarder());
-//        newBooking.setConsignee(booking.getConsignee());
-//        newBooking.setFromCity(booking.getFromCity());
-//        newBooking.setToCity(booking.getToCity());
-//        newBooking.setCargoNature(booking.getCargoNature());
-//        newBooking.setCargoDescription(booking.getCargoDescription());
-//        newBooking.setContainerDetails(booking.getContainerDetails());
+        Booking oldBooking = findBookingByBookingNumber(booking.getBookingNumber());
+        List<ContainerDetails> toRemove = oldBooking.getContainerDetails().stream()
+                .filter(oldContainer -> !booking.getContainerDetails().contains(oldContainer))
+                .collect(Collectors.toList());
+        toRemove.forEach(remove -> containerDetailsRepository.delete(remove));
         bookingRepository.save(booking);
         return "Booking Updated!";
     }
