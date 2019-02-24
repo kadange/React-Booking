@@ -61,6 +61,8 @@ class Container extends Component {
                 return;
             }
 
+            values = Object.assign({id: this.state.rowToUpdate.id},values);
+
             if(this.state.isEditRow) {
                 let newUpdateValue = Object.assign({key: this.state.rowToUpdate.key}, values);
                 this.props.thunkUpdateContainerDetails(newUpdateValue).then(() => {
@@ -70,16 +72,15 @@ class Container extends Component {
                 })
             } else {
                 let currKeyValue = this.state.keyValue;
-                this.setState({
-                    keyValue: currKeyValue + 1,
-                }, () => {
-                    values = Object.assign({key: this.state.keyValue}, values);
-                })
-
+                currKeyValue++;
+                values = Object.assign({key: currKeyValue}, values);
                 this.props.thunkAddContainerDetails(values).then(() => {
                     this.props.formProps.setFieldsValue({
                         containerDetails: this.props.containerDetails,
                     });
+                })
+                this.setState({
+                    keyValue: currKeyValue,
                 })
             }
             
@@ -101,8 +102,14 @@ class Container extends Component {
 
     componentWillReceiveProps(nextProp) {
         if(this.props.manageBooking !== nextProp.manageBooking) {
+            let currKeyValue = this.state.keyValue;
             nextProp.manageBooking.containerDetails.map(container => {
+                currKeyValue++;
+                container = Object.assign({key: currKeyValue}, container);
                 this.props.thunkAddContainerDetails(container)
+            })
+            this.setState({
+                keyValue: currKeyValue,
             })
         }
     }
